@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Modern News Portal</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body class="container">
+  <header>
+    <span class="brand-text">✨Hideko's Topic✨</span>
+    <form class="search-form">
+      <input type="text" class="search-input" placeholder="Search...">
+      <button type="submit" class="search-button">Go</button>
+    </form>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <!-- Add more categories as needed -->
+    </ul>
+  </nav>
+  <main>
+    <p class="search-not-found">Oops, your search not found!</p>
+    {% include 'artikel.html' %}
+    <!-- Add more articles as needed -->
+  </main>
+  <aside>
+    <center>
+      <h1>Berita Populer</h1>
+    </center>
+    <ul>
+      <li>
+        <div class="popular-news-content">
+          <img class="popular-news-img" src="https://game.downloadtanku.org/wp-content/uploads/2019/10/theouterworlddltku-min-1.jpg" alt="Popular News Image 1">
+          <h2 class="popular-news-title"><a href="#">Judul Berita Populer 1</a></h2>
+          <p class="popular-news-description">Deskripsi singkat berita populer 1...</p>
+        </div>
+      </li>
+    </ul>
+  </aside>
+  <footer>Footer</footer>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const searchForm = document.querySelector('.search-form');
+      const articles = document.querySelectorAll('.article-card');
+      const searchNotFound = document.querySelector('.search-not-found');
+
+      searchForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const searchTerm = document.querySelector('.search-input').value.toLowerCase();
+        let found = false;
+
+        articles.forEach(article => {
+          const articleTitle = article.querySelector('h2').textContent.toLowerCase();
+          if (articleTitle.includes(searchTerm)) {
+            article.style.display = 'block';
+            found = true;
+          } else {
+            article.style.display = 'none';
+          }
+        });
+
+        if (!found) {
+          searchNotFound.style.display = 'block';
+        } else {
+          searchNotFound.style.display = 'none';
+        }
+      });
+    });
+  </script>
+
+</html>
